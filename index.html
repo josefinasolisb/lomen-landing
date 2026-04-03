@@ -612,7 +612,7 @@ footer {
       - Borra el <form> y el atributo action
       - Llama supabase.from('leads').insert([{ email, interes }]) en el submit handler
     -->
-    <form id="form" class="form-row" action="https://formspree.io/f/xzdkjvvr" method="POST">
+    <form class="form-row" action="https://formspree.io/f/xzdkjvvr" method="POST">
       <input class="email-in" type="email" name="email" placeholder="tu@email.com" required autocomplete="email"/>
       <input type="hidden" name="interes" value="coleccion-1"/>
       <input type="hidden" name="_subject" value="Nueva reserva — Primera colección LOMEN"/>
@@ -640,40 +640,6 @@ footer {
   document.querySelector('.cta-pill').addEventListener('click', function(e) {
     e.preventDefault();
     document.getElementById('reserva').scrollIntoView({ behavior: 'smooth' });
-  });
-
-  // Manejo del formulario
-  const form    = document.getElementById('form');
-  const btn     = document.getElementById('btn');
-  const note    = document.getElementById('note');
-  const success = document.getElementById('success');
-
-  form.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    btn.disabled = true;
-    btn.textContent = 'Enviando…';
-
-    try {
-      const r = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' }
-      });
-
-      if (r.ok) {
-        form.style.display = 'none';
-        note.style.display = 'none';
-        success.classList.add('on');
-      } else {
-        btn.disabled = false;
-        btn.textContent = 'Reservar';
-        alert('Algo salió mal. Intenta de nuevo.');
-      }
-    } catch {
-      btn.disabled = false;
-      btn.textContent = 'Reservar';
-      alert('Error de conexión.');
-    }
   });
 </script>
 
