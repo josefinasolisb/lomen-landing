@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="description" content="Clásicos católicos reimpresos. Edición minimalista. Precio justo en Latinoamérica."/>
+<title>LOMEN — La ruta de tu fe</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Jost:wght@300;400&display=swap" rel="stylesheet"/>
+
+<style>
+/* ============================================================
+   TOKENS — edita aquí primero antes de tocar el HTML
+   ============================================================ */
+:root {
+  --ink:         #1A1410;
+  --paper:       #F6F1E9;
+  --paper-dark:  #EDE5D6;
+  --border:      #d4b87a;
+  --rust:        #7B3020;   /* color primario — botones, acentos */
+  --rust-light:  #9B4030;   /* hover */
+  --muted:       #8C7A65;
+  --text-body:   #4A3A28;
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Jost', system-ui, sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.page { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+nav {
+  border-bottom: 1px solid var(--border);
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand {
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.nav-right {
+  font-size: 0.65rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  padding: 52px 0 48px;
+  display: grid;
+  grid-template-columns: 1fr 180px;
+  gap: 40px;
+  align-items: start;
+}
+.hero-tag {
+  display: block;
+  font-size: 0.63rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.hero-title {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(2.6rem, 7vw, 3.6rem);
+  font-weight: 400;
+  line-height: 1.06;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.hero-title em { font-style: italic; color: var(--rust); }
+.hero-author {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.92rem;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 22px;
+}
+.hero-desc {
+  font-size: 0.85rem;
+  color: var(--text-body);
+  line-height: 1.8;
+  margin-bottom: 32px;
+  max-width: 340px;
+}
+.cta-pill {
+  display: inline-block;
+  padding: 13px 30px;
+  background: var(--rust);
+  color: var(--paper);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.cta-pill:hover { background: var(--rust-light); }
+
+/* ============================================================
+   MOCKUP LIBRO — HERO
+   Cuando tengas el PNG de Canva:
+   1. Guarda en assets/portada-kempis.png
+   2. Borra .book y .book-shadow
+   3. Pon: <img src="assets/portada-kempis.png" alt="…" class="book-img">
+   ============================================================ */
+.book-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8px;
+}
+.book {
+  width: 120px;
+  height: 172px;
+  background: var(--paper-dark);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 3px 5px 18px rgba(26,20,16,0.13), inset -2px 0 6px rgba(0,0,0,0.06);
+}
+.book-spine {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 10px;
+  background: #d4b87a;
+  border-right: 1px solid var(--border);
+}
+.book-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 16px 12px;
+  text-align: center;
+}
+.book-cross svg { width: 14px; height: 14px; opacity: 0.45; }
+.book-btitle {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--text-body);
+  line-height: 1.25;
+}
+.book-line { width: 22px; height: 1px; background: var(--rust); opacity: 0.35; }
+.book-bauthor {
+  font-size: 0.52rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.book-shadow {
+  width: 100px; height: 5px;
+  background: rgba(26,20,16,0.07);
+  filter: blur(4px);
+  margin-top: 3px;
+}
+.book-img {
+  width: 120px;
+  border: 1px solid var(--border);
+  box-shadow: 3px 5px 18px rgba(26,20,16,0.13);
+  display: block;
+}
+
+/* ============================================================
+   COLECCIÓN — 3 LIBROS
+   ============================================================ */
+.coleccion { padding: 48px 0; border-top: 1px solid var(--border); }
+.section-label {
+  display: block;
+  font-size: 0.63rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+.libros {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.libro-card {
+  background: var(--paper-dark);
+  border: 1px solid var(--border);
+  padding: 0 0 16px;
+}
+
+/*
+  PORTADAS DE LIBROS — placeholder CSS
+  Cuando tengas los PNGs:
+  - .libro-cover → reemplazar por <img src="assets/portada-X.png" class="libro-cover-img">
+  - Agregar: .libro-cover-img { width: 100%; aspect-ratio: 2/3; display: block; }
+*/
+.libro-cover {
+  width: 100%;
+  aspect-ratio: 2/3;
+  background: var(--paper-dark);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: inset -2px 0 5px rgba(0,0,0,0.05);
+}
+.libro-spine {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 8px;
+  background: #d4b87a;
+  border-right: 1px solid var(--border);
+}
+.libro-cover-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 10px;
+  text-align: center;
+}
+.libro-cross svg { width: 11px; height: 11px; opacity: 0.4; }
+.libro-ctitle {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.65rem;
+  font-style: italic;
+  color: var(--text-body);
+  line-height: 1.2;
+}
+.libro-cline { width: 18px; height: 1px; background: var(--rust); opacity: 0.3; }
+.libro-cauthor { font-size: 0.48rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+.libro-info { padding: 14px 14px 0; }
+.libro-num {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--border);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.libro-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.85rem;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.libro-author { font-size: 0.7rem; font-style: italic; color: var(--muted); }
+.libro-desc {
+  font-size: 0.72rem;
+  color: var(--text-body);
+  line-height: 1.65;
+  margin-top: 6px;
+}
+
+/* ============================================================
+   PROPUESTA DE VALOR
+   ============================================================ */
+.propuesta { padding: 48px 0; border-top: 1px solid var(--border); }
+.props { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+.prop-num {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.6rem;
+  color: var(--border);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.prop-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.95rem;
+  color: var(--ink);
+  margin-bottom: 5px;
+  line-height: 1.3;
+}
+.prop-desc { font-size: 0.78rem; color: var(--text-body); line-height: 1.7; }
+
+/* ============================================================
+   RESERVA
+   ============================================================ */
+.reserve { padding: 48px 0 64px; border-top: 1px solid var(--border); }
+.reserve-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+  margin-bottom: 36px;
+}
+.reserve-headline {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+  font-weight: 400;
+  line-height: 1.12;
+  color: var(--ink);
+}
+.reserve-copy { font-size: 0.83rem; color: var(--text-body); line-height: 1.8; padding-top: 4px; }
+.form-row { display: flex; max-width: 480px; }
+.email-in {
+  flex: 1;
+  padding: 13px 16px;
+  background: var(--paper-dark);
+  border: 1px solid var(--border);
+  border-right: none;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.83rem;
+  font-weight: 300;
+  color: var(--ink);
+  outline: none;
+}
+.email-in::placeholder { color: #B0956E; }
+.email-in:focus { border-color: var(--rust); background: #E8DCCB; }
+.form-btn {
+  padding: 13px 24px;
+  background: var(--rust);
+  color: var(--paper);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+.form-btn:hover { background: var(--rust-light); }
+.form-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.form-note { font-size: 0.7rem; color: var(--muted); margin-top: 10px; letter-spacing: 0.04em; }
+.success {
+  display: none;
+  padding: 24px 28px;
+  border: 1px solid var(--border);
+  background: var(--paper-dark);
+  max-width: 480px;
+}
+.success p:first-child {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--rust);
+  margin-bottom: 5px;
+}
+.success p:last-child { font-size: 0.8rem; color: var(--text-body); }
+.success.on { display: block; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 22px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-brand {
+  font-family: 'EB Garamond', serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.footer-note { font-size: 0.65rem; color: #B0956E; letter-spacing: 0.08em; }
+
+/* ============================================================
+   RESPONSIVE — MOBILE FIRST
+   Breakpoint único: 580px
+   ============================================================ */
+@media (max-width: 580px) {
+  .page { padding: 0 18px; }
+  nav { padding: 16px 0; }
+  .nav-right { display: none; }
+
+  /* Hero: columna única, sin mockup lateral */
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 40px 0 36px;
+  }
+  .book-col { display: none; }
+  .hero-title { font-size: 2.8rem; }
+  .hero-desc { max-width: 100%; }
+
+  /* 3 libros: scroll horizontal con snap */
+  .libros {
+    grid-template-columns: repeat(3, 148px);
+    overflow-x: auto;
+    padding-bottom: 12px;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 14px;
+  }
+  .libro-card { scroll-snap-align: start; flex-shrink: 0; }
+
+  /* Props: stack vertical */
+  .props { grid-template-columns: 1fr; gap: 24px; }
+
+  /* Reserva: stack */
+  .reserve-grid { grid-template-columns: 1fr; gap: 20px; margin-bottom: 24px; }
+  .form-row { flex-direction: column; }
+  .email-in {
+    border-right: 1px solid var(--border);
+    border-bottom: none;
+    padding: 14px 16px;
+    font-size: 1rem;
+  }
+  .form-btn { padding: 14px; font-size: 0.72rem; letter-spacing: 0.18em; }
+
+  footer { flex-direction: column; gap: 6px; text-align: center; padding: 20px 0; }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- ==================== NAV ==================== -->
+  <nav>
+    <span class="brand">LOMEN</span>
+    <span class="nav-right">La ruta de tu fe</span>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <div class="hero-text">
+      <span class="hero-tag">Primera colección · En desarrollo</span>
+      <h1 class="hero-title"><em>Clásicos<br>católicos</em></h1>
+      <p class="hero-author">reimpresos para hoy</p>
+      <p class="hero-desc">
+        Textos que han acompañado la fe de generaciones, ahora en ediciones
+        que respetan el original. Diseño limpio, papel de calidad, precio
+        justo en toda Latinoamérica.
+      </p>
+      <a href="#reserva" class="cta-pill">Ver la colección</a>
+    </div>
+
+    <!--
+      MOCKUP HERO
+      Cuando tengas el PNG de Canva (portada Kempis):
+      1. Guarda como assets/portada-kempis.png
+      2. Borra el <div class="book"> y <div class="book-shadow">
+      3. Pon: <img src="assets/portada-kempis.png" alt="Imitación de Cristo" class="book-img">
+    -->
+    <div class="book-col">
+      <div class="book">
+        <div class="book-spine"></div>
+        <div class="book-inner">
+          <div class="book-cross">
+            <svg viewBox="0 0 14 14" fill="none">
+              <line x1="7" y1="1" x2="7" y2="13" stroke="#7B3020" stroke-width="0.8"/>
+              <line x1="3" y1="5" x2="11" y2="5" stroke="#7B3020" stroke-width="0.8"/>
+            </svg>
+          </div>
+          <div class="book-line"></div>
+          <p class="book-btitle">Imitación<br>de Cristo</p>
+          <div class="book-line"></div>
+          <p class="book-bauthor">Kempis</p>
+        </div>
+      </div>
+      <div class="book-shadow"></div>
+    </div>
+  </section>
+
+  <!-- ==================== COLECCIÓN ==================== -->
+  <section class="coleccion">
+    <span class="section-label">Primera colección</span>
+    <div class="libros">
+
+      <!-- LIBRO 01 -->
+      <div class="libro-card">
+        <!--
+          Reemplazar .libro-cover por:
+          <img src="assets/portada-kempis.png" alt="Imitación de Cristo" class="libro-cover-img">
+        -->
+        <div class="libro-cover">
+          <div class="libro-spine"></div>
+          <div class="libro-cover-inner">
+            <div class="libro-cross"><svg viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="#7B3020" stroke-width="0.7"/><line x1="2" y1="4" x2="9" y2="4" stroke="#7B3020" stroke-width="0.7"/></svg></div>
+            <div class="libro-cline"></div>
+            <p class="libro-ctitle">Imitación<br>de Cristo</p>
+            <div class="libro-cline"></div>
+            <p class="libro-cauthor">Kempis</p>
+          </div>
+        </div>
+        <div class="libro-info">
+          <p class="libro-num">01</p>
+          <p class="libro-title">Imitación de Cristo</p>
+          <p class="libro-author">Tomás de Kempis</p>
+          <p class="libro-desc">El clásico de la vida interior. Más de 500 años guiando almas hacia lo esencial.</p>
+        </div>
+      </div>
+
+      <!-- LIBRO 02 -->
+      <div class="libro-card">
+        <!--
+          Reemplazar .libro-cover por:
+          <img src="assets/portada-juan.png" alt="Noche Oscura del Alma" class="libro-cover-img">
+        -->
+        <div class="libro-cover">
+          <div class="libro-spine"></div>
+          <div class="libro-cover-inner">
+            <div class="libro-cross"><svg viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="#7B3020" stroke-width="0.7"/><line x1="2" y1="4" x2="9" y2="4" stroke="#7B3020" stroke-width="0.7"/></svg></div>
+            <div class="libro-cline"></div>
+            <p class="libro-ctitle">Noche<br>Oscura</p>
+            <div class="libro-cline"></div>
+            <p class="libro-cauthor">S. Juan</p>
+          </div>
+        </div>
+        <div class="libro-info">
+          <p class="libro-num">02</p>
+          <p class="libro-title">Noche Oscura del Alma</p>
+          <p class="libro-author">San Juan de la Cruz</p>
+          <p class="libro-desc">La travesía hacia la unión con Dios. Poesía y mística en el texto original en castellano.</p>
+        </div>
+      </div>
+
+      <!-- LIBRO 03 -->
+      <div class="libro-card">
+        <!--
+          Reemplazar .libro-cover por:
+          <img src="assets/portada-teresa.png" alt="Camino de Perfección" class="libro-cover-img">
+        -->
+        <div class="libro-cover">
+          <div class="libro-spine"></div>
+          <div class="libro-cover-inner">
+            <div class="libro-cross"><svg viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="#7B3020" stroke-width="0.7"/><line x1="2" y1="4" x2="9" y2="4" stroke="#7B3020" stroke-width="0.7"/></svg></div>
+            <div class="libro-cline"></div>
+            <p class="libro-ctitle">Camino de<br>Perfección</p>
+            <div class="libro-cline"></div>
+            <p class="libro-cauthor">Sta. Teresa</p>
+          </div>
+        </div>
+        <div class="libro-info">
+          <p class="libro-num">03</p>
+          <p class="libro-title">Camino de Perfección</p>
+          <p class="libro-author">Santa Teresa de Ávila</p>
+          <p class="libro-desc">Una mujer que reformó la Iglesia escribiendo desde la oración. Su voz sigue viva.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== PROPUESTA ==================== -->
+  <section class="propuesta">
+    <span class="section-label">Por qué esta edición</span>
+    <div class="props">
+      <div>
+        <p class="prop-num">01</p>
+        <p class="prop-title">Texto original,<br>sin alterar</p>
+        <p class="prop-desc">Dominio público verificado. Sin abreviaciones ni adaptaciones que diluyan la voz del texto.</p>
+      </div>
+      <div>
+        <p class="prop-num">02</p>
+        <p class="prop-title">Diseño que<br>respeta la lectura</p>
+        <p class="prop-desc">Tipografía legible, márgenes generosos, papel que no cansa los ojos. Para leer despacio.</p>
+      </div>
+      <div>
+        <p class="prop-num">03</p>
+        <p class="prop-title">Precio justo<br>en todo LATAM</p>
+        <p class="prop-desc">Para uso personal, grupos de lectura, retiros y formación parroquial. No debería ser un lujo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RESERVA ==================== -->
+  <section class="reserve" id="reserva">
+    <div class="reserve-grid">
+      <h2 class="reserve-headline">Reserva<br>tu lugar</h2>
+      <p class="reserve-copy">
+        La primera colección está en desarrollo. Déjanos tu email y serás
+        la primera en saber cuándo esté lista.<br><br>
+        Sin spam. Solo te escribimos cuando la edición esté disponible.
+      </p>
+    </div>
+
+    <!--
+      FORMSPREE — INSTRUCCIONES:
+      1. Ve a formspree.io → crea cuenta gratis → nuevo formulario
+      2. Copia el endpoint (formato: https://formspree.io/f/xabc1234)
+      3. Reemplaza action="TU_ENDPOINT_FORMSPREE" con ese URL
+
+      MIGRACIÓN A SUPABASE (Fase 2):
+      - Borra el <form> y el atributo action
+      - Llama supabase.from('leads').insert([{ email, interes }]) en el submit handler
+    -->
+    <form id="form" class="form-row" action="TU_ENDPOINT_FORMSPREE" method="POST">
+      <input class="email-in" type="email" name="email" placeholder="tu@email.com" required autocomplete="email"/>
+      <input type="hidden" name="interes" value="coleccion-1"/>
+      <input type="hidden" name="_subject" value="Nueva reserva — Primera colección LOMEN"/>
+      <button class="form-btn" type="submit" id="btn">Reservar</button>
+    </form>
+    <p class="form-note" id="note">Primera colección en desarrollo. Te avisamos cuando esté lista.</p>
+
+    <div class="success" id="success">
+      <p>Gracias. Nos ponemos en contacto.</p>
+      <p>Primera colección en desarrollo — te avisaremos cuando esté lista.</p>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer>
+    <span class="footer-brand">LOMEN</span>
+    <span class="footer-note">Lima, Perú</span>
+  </footer>
+
+</div>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+  // Scroll suave al CTA del hero
+  document.querySelector('.cta-pill').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('reserva').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Manejo del formulario
+  const form    = document.getElementById('form');
+  const btn     = document.getElementById('btn');
+  const note    = document.getElementById('note');
+  const success = document.getElementById('success');
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+
+    try {
+      const r = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+
+      if (r.ok) {
+        form.style.display = 'none';
+        note.style.display = 'none';
+        success.classList.add('on');
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Reservar';
+        alert('Algo salió mal. Intenta de nuevo.');
+      }
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'Reservar';
+      alert('Error de conexión.');
+    }
+  });
+</script>
+
+</body>
+</html>
