@@ -606,13 +606,13 @@ footer {
       FORMSPREE — INSTRUCCIONES:
       1. Ve a formspree.io → crea cuenta gratis → nuevo formulario
       2. Copia el endpoint (formato: https://formspree.io/f/xabc1234)
-      3. Reemplaza action="TU_ENDPOINT_FORMSPREE" con ese URL
+      3. Reemplaza action="https://formspree.io/f/xzdkjvvr" con ese URL
 
       MIGRACIÓN A SUPABASE (Fase 2):
       - Borra el <form> y el atributo action
       - Llama supabase.from('leads').insert([{ email, interes }]) en el submit handler
     -->
-    <form id="form" class="form-row" action="TU_ENDPOINT_FORMSPREE" method="POST">
+    <form id="form" class="form-row" action="https://formspree.io/f/xzdkjvvr" method="POST">
       <input class="email-in" type="email" name="email" placeholder="tu@email.com" required autocomplete="email"/>
       <input type="hidden" name="interes" value="coleccion-1"/>
       <input type="hidden" name="_subject" value="Nueva reserva — Primera colección LOMEN"/>
