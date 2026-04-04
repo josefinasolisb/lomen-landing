@@ -56,9 +56,20 @@ nav {
   justify-content: space-between;
 }
 .brand-logo {
-  height: 280px;
+  height: 28px;
   width: auto;
   display: block;
+}
+.brand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-name {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.1rem;
+  letter-spacing: 0.14em;
+  color: #b8964a;
 }
 .nav-right {
   font-size: 0.65rem;
@@ -454,7 +465,10 @@ footer {
 
   <!-- ==================== NAV ==================== -->
   <nav>
-    <img src="assets/lomen-logo.png" alt="LOMEN" class="brand-logo"/>
+    <div class="brand-wrap">
+      <img src="assets/lomen-logo.png" alt="LOMEN" class="brand-logo"/>
+      <span class="brand-name">LOMEN</span>
+    </div>
   </nav>
 
   <!-- ==================== HERO ==================== -->
